@@ -1,0 +1,102 @@
+** upgrade package
+sudo apt update
+sudo apt upgrade
+
+** install chrome
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/google-chrome-stable_current_amd64.deb
+sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
+
+** utilities
+sudo apt install git terminator tmux tmuxinator curl pandoc pass ripgrep fd-find
+fzf bat
+# batcat
+
+** zsh | oh-myzsh
+sudo apt install zsh
+chsh -s $(which zsh)
+sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+
+** python
+curl https://pyenv.run | bash
+sudo apt-get install build-essential zlib1g-dev libffi-dev libssl-dev libbz2-dev libreadline-dev libsqlite3-dev liblzma-dev
+sudo apt-get install python-tk python3-tk tk-dev
+pyenv install 3.10.0
+pyenv rehash
+pyenv global 3.10.0
+
+** Ruby
+sudo apt update
+sudo apt install rbenv
+echo 'eval "$(rbenv init -)"' >> ~/.zshrc
+
+sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev
+git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+# Upgrade later
+git -C "$(rbenv root)"/plugins/ruby-build pull
+
+#starship
+curl -sS https://starship.rs/install.sh | sh
+echo 'eval "$(starship init zsh)"' >> ~/.zshrc
+
+** Fonts
+sudo apt install fonts-firacode
+sudo apt install fonts-wqy-zenhei fonts-wqy-microhei fonts-cascadia-code fonts-hack fonts-inconsolata
+sudo apt-get install fonts-powerline
+# https://www.nerdfonts.com/
+
+git clone https://github.com/adobe-fonts/source-code-pro.git ~/.local/share/fonts/source-code-pro
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf -o ~/.local/share/fonts/MesloLGS\ NF\ Bold\ Italic.ttf
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf -o ~/.local/share/fonts/MesloLGS\ NF\ Regular.ttf
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf -o ~/.local/share/fonts/MesloLGS\ NF\ Bold.ttf
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf -o ~/.local/share/fonts/MesloLGS\ NF\ Italic.ttf
+
+cd ~/.local/share/fonts/ && fc-cache -fv
+
+** dotfiles
+# add ssh key https://docs.github.com/en/authentication/connecting-to-github-with-ssh
+# ssh -i ~/.ssh/idXXX git@github.com # id_name is not default name.
+
+apt install rcm powerline
+
+git clone git@github.com:thinkpad560/dotfiles.git ~/.config
+env RCRC=$HOME/.config/dotfiles/rcrc rcup -K
+
+** install vim9
+sudo add-apt-repository ppa:jonathonf/vim
+sudo apt update
+sudo apt install vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+** Emacs
+sudo apt install emacs # install version 27
+sudo snap install emacs --classic # install version 29
+git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+~/.config/emacs/bin/doom install
+
+** Docker
+# https://docs.docker.com/desktop/install/ubuntu/
+
+** Dropbox
+wget https://linux.dropbox.com/ubuntu/pool/main/dropbox_2020.03.04_amd64.deb -O /tmp/dropbox_2020.03.04_amd64.deb
+sudo apt install /tmp/dropbox_2020.03.04_amd64.deb
+
+** nutstore
+wget https://www.jianguoyun.com/static/exe/installer/ubuntu/nautilus_nutstore_amd64.deb -O /tmp/nautilus_nutstore_amd64.deb
+sudo apt-get install -f /tmp/nautilus_nutstore_amd64.deb
+
+** Containerizing a Ruby on Rails Application for Development with Docker Compose
+
+** datascience
+mkdir -p ~/code.dev/Learning/data.analysis/pandas/data/scdb_report
+
+** Nodejs
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+nvm install --lts
+nvm use --lts
+
+** 
+*** wgetrc
+info wget.info 'Startup File'
+`/etc/wgetrc` for global user, and `$HOME/.wgetrc` for current user.
+echo "https_proxy = https://127.0.0.1:7890" > ~/.wgetrc
